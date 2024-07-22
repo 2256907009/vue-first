@@ -1,6 +1,6 @@
 {
-    "name" : "E-commerce",
-    "appid" : "__UNI__D32AA60",
+    "name" : "222",
+    "appid" : "__UNI__FABF66B",
     "description" : "",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -68,5 +68,5 @@
     "uniStatistics" : {
         "enable" : false
     },
-    "vueVersion" : "3"
+    "vueVersion" : "2"
 }
