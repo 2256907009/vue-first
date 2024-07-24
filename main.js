@@ -1,13 +1,28 @@
 import App from './App'
 import axios from 'axios'
+// import { router, RouterMount } from "router/index.js"; 
+// import uni from 'uni'
+// import request from './common/request.js'
+
+   uni.$u.http.setConfig((config) => {
+        /* config 为默认全局配置*/
+        config.baseURL = 'http://127.0.0.1:8000/api/private/v1'; /* 根域名 */
+        return config
+    })
+
+
 
 
 
 // #ifndef VUE3
 import Vue from 'vue'
-// main.js
 import uView from 'uview-ui'
+
 Vue.use(uView)
+// Vue.use(router)
+
+Vue.prototype.$axios = axios
+
 
 
 import './uni.promisify.adaptor'
@@ -15,7 +30,8 @@ Vue.config.productionTip = false
 App.mpType = 'app'
 const app = new Vue({
   ...App
-})
+});
+// RouterMount(app, router, '#app');
 app.$mount()
 // #endif
 

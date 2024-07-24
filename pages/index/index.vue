@@ -9,12 +9,19 @@
 
 <script>
 	export default {
+		name: 'index',
 		data() {
 			return {
 				title: 'Hello'
 			}
 		},
 		onLoad() {
+			
+			
+			
+			
+			
+			
 
 		},
 		methods: {
