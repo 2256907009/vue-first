@@ -19,9 +19,38 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "",
-				"enablePullDownRefresh" : false
+				"enablePullDownRefresh" : false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/users/users",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/roles/roles",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/rights/rights",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false,
+				"navigationStyle": "custom"
 			}
 		}
+		
 		
 	],
 	"globalStyle": {
@@ -32,10 +61,10 @@
 	},
 	"uniIdRouter": {
 		
-	},
-	// 如果您是通过uni_modules形式引入uView，可以忽略此配置
-	"easycom": {
-		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	}
+	// // 如果您是通过uni_modules形式引入uView，可以忽略此配置
+	// "easycom": {
+	// 	"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	// }
 	
 }

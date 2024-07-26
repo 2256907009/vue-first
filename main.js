@@ -1,14 +1,18 @@
 import App from './App'
 import axios from 'axios'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 // import { router, RouterMount } from "router/index.js"; 
 // import uni from 'uni'
-// import request from './common/request.js'
+// import request from './utils/request.js'
 
-   uni.$u.http.setConfig((config) => {
-        /* config 为默认全局配置*/
-        config.baseURL = 'http://127.0.0.1:8000/api/private/v1'; /* 根域名 */
-        return config
-    })
+
+
+// uni.$u.http.setConfig((config) => {
+//      /* config 为默认全局配置*/
+//      config.baseURL = 'http://127.0.0.1:8000/api/private/v1'; /* 根域名 */
+//      return config
+//  })
 
 
 
@@ -16,10 +20,12 @@ import axios from 'axios'
 
 // #ifndef VUE3
 import Vue from 'vue'
-import uView from 'uview-ui'
+// import uView from 'uview-ui'
 
-Vue.use(uView)
+// Vue.use(uView)
 // Vue.use(router)
+Vue.use(ElementUI)
+
 
 Vue.prototype.$axios = axios
 

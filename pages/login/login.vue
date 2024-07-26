@@ -10,7 +10,7 @@
 					用户名：
 				</view>
 				<view class="">
-					<u-input placeholder="请输入用户名" border="bottom"  v-model="username" ></u-input>
+					<el-input placeholder="请输入用户名" v-model="username" clearable></el-input>
 				</view>
 			</view>
 			<view class="login-form-password">
@@ -18,21 +18,19 @@
 					密码：
 				</view>
 				<view class="">
-					<u-input placeholder="请输入密码" border="bottom"  v-model="password"></u-input>
+					<el-input placeholder="请输入密码" clearable v-model="password"></el-input>					
 				</view>
 			</view>
 			<view class="canvas">
 				<view class="">
-					<u-input placeholder="请输入验证码" v-model="form.check"></u-input>
+					<el-input placeholder="请输入验证码" v-model="form.check" clearable></el-input>
 				</view>
 				<view class="canvas-img-code" @click="clickCode">
 					<canvas :style="{width:width+'px',height:height+'px'}" canvas-id="imgcanvas"></canvas>
 				</view>			
-			</view>
-			
-			
+			</view>						
 			<view class="login-form-button">
-				<u-button text="登录" type="primary" @click="handle"></u-button>
+				<el-button type="primary" @click="handle" >登录</el-button>
 			</view>
 		</view>
 	
@@ -41,15 +39,15 @@
 
 <script>
 	
-	import {post} from 'common/api.js'
+	import {post} from 'common/request.js'
 	
 	export default {
 		name: 'login',
 		data() {
 			return {
 				disabled:false,
-				password:'',
-				username:'',
+				password:'123456',
+				username:'admin',
 				form:{
 					check:'',//验证码
 				},
@@ -82,9 +80,12 @@
 						  // 使用axios就使用post(url,data)
 						const test = await post('/login',{username: this.username,password: this.password})				
 						console.log('请求成功',test);
-						window.sessionStorage.setItem('token',test.data.data.token)
-						alert(test.data.meta.msg)
-						this.$router.push('/pages/home/home')
+						window.sessionStorage.setItem('token',test.data.token)
+						alert(test.meta.msg)						
+						//普通跳转页面
+						uni.navigateTo({
+						  url: '/pages/home/home'
+						});
 					  }
 					
 					
@@ -174,7 +175,7 @@
 	}
 	.login-from{
 		width: 40%;
-		height: 300px;
+		/* height: 350px; */
 		text-align: center;
 		margin: 0 auto;
 		background-color: white;
@@ -197,7 +198,9 @@
 	}
 	.login-form-button{
 		width: 50%;
+		margin: 10px;
 		padding-left: 25%;
+		
 	}
 	.canvas{
 		display: flex;
