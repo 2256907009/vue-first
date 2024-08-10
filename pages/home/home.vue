@@ -67,7 +67,6 @@
 			},
 			async getMenuList(){
 				const res = await get('/menus')
-				console.log(res);
 				if(res.meta.status !== 200) return this.$message.error(res.meta.msg)
 				this.menuList = res.data;				
 			},
@@ -75,8 +74,6 @@
 				this.isCollapse = !this.isCollapse;
 			},
 			changePath(path,id){
-				console.log(path);
-				console.log(id);
 				//这里的path已经是二级目录下的path了
 				this.realPath = '/' + path;		
 				this.currentPagePath = this.realPath;
@@ -101,7 +98,7 @@
 				//通过查找是否还有子类，若有进行判度胺
 				if (menu.children && this.findBreadcrumb(menu.children, id, breadcrumb)) {
 					//有子类，那就将父类提前
-				  breadcrumb.push(menu);
+				  breadcrumb.unshift(menu);
 				  return true;
 				}
 			  }
@@ -129,6 +126,7 @@
 <style scoped>
 	.container{
 		background-color: rgb(233,237,240);
+	/* 	position: fixed; */
 	}
 	.header-main{
 		display: flex;
@@ -143,7 +141,7 @@
 	}
 	.el-menu-vertical-demo:not(.el-menu--collapse) {
 	    width: 200px;
-	    min-height: 628px;
+	    min-height: 620px;
 		
 	}
 	.collapse-button{
@@ -155,10 +153,7 @@
 		width: 200px;
 		
 	}
-	.aside-background{
-		background-color: rgb(64,73,88);
-		height: 100%;
-	}
+
 
 
 </style>

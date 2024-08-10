@@ -61,17 +61,33 @@
 								<el-button @click="editdialogVisible = false">取消</el-button>
 								<el-button type="primary" @click="editUser()">确定</el-button>
 							</span>
-						</el-dialog>						
+						</el-dialog>
+												
 						<el-tooltip class="item" effect="dark" content="删除角色" placement="top-end" :enterable="false">						
 							<el-popconfirm title="确定删除这个用户吗" @confirm="deleteUser(scope.row.id)">
 							<!-- 触发 Popconfirm 显示的 HTML 元素 -->
 								<el-button slot="reference" type="danger" icon="el-icon-delete" size="mini" class="button-item"></el-button>
 							</el-popconfirm>					
-						</el-tooltip>	
-					
-			
-				
-						<el-tooltip class="item" effect="dark" content="分配角色" placement="top-end" :enterable="false"><el-button type="warning" icon="el-icon-setting" size="mini" class="button-item"></el-button></el-tooltip>												
+						</el-tooltip>
+							
+						<el-tooltip class="item" effect="dark" content="分配角色" placement="top-end" :enterable="false"><el-button type="warning" icon="el-icon-setting" size="mini" class="button-item" @click="showAssignment(scope.row)"></el-button></el-tooltip>	
+						<el-dialog title="分配角色" :visible.sync="assignmentVisible" v-if="scope.row.id ===assignmentRole.id">
+							<el-form :model="assignmentRole">
+								<el-form-item label="当前用户:">{{assignmentRole.username}}</el-form-item>
+								<el-form-item label="当前角色:">{{assignmentRole.role_name}}</el-form-item>
+								<el-form-item label="分配新的角色">
+									<el-select v-model="selectedRoleId" placeholder="请选择新的角色">
+										<el-option v-for="item in getRoleList" :label="item.roleName" :value="item.id" :key="item.id" ></el-option>
+									</el-select>
+								</el-form-item>		
+							</el-form>
+							<span slot="footer" class="dialog-footer">
+								<el-button @click="assignmentVisible = false">取消</el-button>
+								<el-button type="primary" @click="saveRole(scope.row), assignmentVisible = false">确定</el-button>
+							</span>
+						</el-dialog>
+							
+																	
 					</template>
 				</el-table-column>				
 			</el-table>
@@ -119,6 +135,7 @@
 				},
 				dialogVisible:false,
 				editdialogVisible:false,
+				assignmentVisible:false,
 				addUserForm:{
 					username:'',
 					password:'',
@@ -130,6 +147,8 @@
 					email:'',
 					mobile:''
 				},
+				selectedRoleId:'',
+				assignmentRole:[],
 				addFromRules:{
 					username:[
 						{required:true,message:'请输入用户名称',trigger:'blur'},
@@ -147,10 +166,23 @@
 						{required:true,message:'请输入手机号',trigger:'blur'},
 						{validator: checkMobile,trigger:'blur'}
 					]
-				}
+				},
+				getRoleList:[]
 			}
 		},
 		methods: {	
+			async saveRole(row){
+				console.log(row);
+				if(!this.selectedRoleId){
+					return this.$message.error('请选择要分配的角色')
+				}
+				const res = await put(`users/${row.id}/role`,{
+					rid:this.selectedRoleId
+				})
+				console.log(res);
+				this.getUserList()
+				assignmentVisible = false
+			},  
 			async getUserList(){
 				const res = await get('/users',this.queryInfo)
 				if(res.meta.status !== 200){
@@ -177,7 +209,6 @@
 					return this.$messgae.error('更新用户状态失败')
 				}
 				this.$message.success('更新用户成功')
-				console.log(res);
 			},
 			addDialogClose(){
 				this.$refs.addUserFromRefs.resetFields()
@@ -188,6 +219,7 @@
 						const res = await post('/users',this.addUserForm)
 						this.$message.success('添加用户成功')
 						console.log(res);
+						this.getUserList()
 						this.dialogVisible = false
 					}
 					if(res.meta.status !== 201){
@@ -196,30 +228,39 @@
 					
 				})
 			},
-			showEditDialog(scope){
-				this.editdialogVisible = true,
+			showEditDialog(scope){				
+				this.editdialogVisible = true
 				//与请求后端 id获取用户信息一致
-				this.editUserForm = JSON.parse(JSON.stringify(scope.row))				
+				this.editUserForm = JSON.parse(JSON.stringify(scope.row))	
 				console.log(this.editUserForm);
 			},
 			async editUser(){
 				const id = this.editUserForm.id				
 				const res = await put(`/users/${id}`,this.editUserForm)
-				console.log(res);
 				this.editdialogVisible = false
 				if(res.meta.status !== 200){
 					return this.$message.error('更新用户失败')
 				}
 				this.$message.success('更新用户成功')
+				this.getUserList()
 				
 			},
 			async deleteUser(id){
 				const res = await del(`/users/${id}`,id)
-				console.log(res);
 				if(res.meta.status!==200){
 					return this.$message.error('删除用户失败')
 				}
 				this.$message.success('用户删除成功')
+				this.getUserList()
+				
+			},
+			async showAssignment(row){
+				console.log(row);
+				this.assignmentVisible = true
+				this.assignmentRole = JSON.parse(JSON.stringify(row))
+				console.log(this.assignmentRole);
+				const res = await get('/roles')		
+				this.getRoleList = res.data
 			}
 		},		
 		created() {
@@ -230,7 +271,8 @@
 
 <style scoped>
 	.users{		
-		width: 97.5%;		
+		width: 97.5%;	
+		/* height: 80vh; */
 		background-color: white;
 		margin-top: 10px;
 		border-radius: 5px;
