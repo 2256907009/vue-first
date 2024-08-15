@@ -49,6 +49,47 @@
 				"enablePullDownRefresh" : false,
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/goods/goods",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/params/params",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/categories/categories",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/orders/orders",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/reports/reports",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 		
 		

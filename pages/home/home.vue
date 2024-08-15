@@ -68,7 +68,9 @@
 			async getMenuList(){
 				const res = await get('/menus')
 				if(res.meta.status !== 200) return this.$message.error(res.meta.msg)
+				
 				this.menuList = res.data;				
+				console.log(this.menuList);
 			},
 			iscollapse(){
 				this.isCollapse = !this.isCollapse;

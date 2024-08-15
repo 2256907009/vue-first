@@ -2,6 +2,7 @@ import App from './App'
 import axios from 'axios'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import ZKtable  from 'vue-table-with-tree-grid'
 // import { router, RouterMount } from "router/index.js"; 
 // import uni from 'uni'
 // import request from './utils/request.js'
@@ -25,8 +26,8 @@ import Vue from 'vue'
 // Vue.use(uView)
 // Vue.use(router)
 Vue.use(ElementUI)
-
-
+Vue.use(ZKtable)
+Vue.component('tree-table',ZKtable)
 Vue.prototype.$axios = axios
 
 
