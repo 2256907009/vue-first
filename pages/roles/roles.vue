@@ -125,7 +125,6 @@
 			},
 			showDialogVisible(scope){
 				this.editDialogVisible = true
-				// this.editRoleForm = scope.row
 				this.editRoleForm = JSON.parse(JSON.stringify(scope.row))
 				console.log(this.editRoleForm);
 				
