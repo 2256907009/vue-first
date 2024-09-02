@@ -34,7 +34,8 @@
 						<el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
 						<el-breadcrumb-item v-for="(item, index) in breadcrumb" :key="index">{{ item.authName }}</el-breadcrumb-item>					
 					</el-breadcrumb>
-					<main-content :pagePath="currentPagePath"></main-content>
+					<component :is="dynamicComponent" @change-page="handlePageChange"></component>
+					<router-view></router-view>
 				</el-main>	
 			</el-container>			
 		</el-container>	
@@ -43,20 +44,44 @@
 
 <script>
 	import {get} from 'common/request.js'
-	import mainContent from 'components/mainContent.vue';
+	// import mainContent from 'components/mainContent.vue';
 	export default {
 		name:'home',
 		data() {
 			return {
 				isCollapse: false,
 				menuList:[],
-				currentPagePath:'',				
+				currentPagePath:'/users',				
 				realPath:'',
 				breadcrumb:[]		
 			}
 		},
 		components:{
-			 mainContent
+			roles: ()=>import('pages/roles/roles.vue'),
+			rights: ()=>import('pages/rights/rights.vue'),
+			users: () => import('pages/users/users.vue'),
+			goods: () => import('pages/goods/goods.vue'),
+			params:() => import('pages/params/params.vue'),
+			categories:() => import('pages/categories/categories.vue'),
+			orders:() =>import('pages/orders/orders'),
+			reports:() =>import('pages/reports/reports.vue'),
+			addgoods:()=>import('pages/goods/addgoods')
+		},
+		computed:{
+			dynamicComponent(){		
+				switch(this.currentPagePath){
+					case '/roles': return 'roles';
+					case '/rights': return 'rights';
+					case '/users': return 'users';
+					case '/goods': return 'goods';
+					case '/params': return 'params';
+					case '/categories': return 'categories';
+					case '/orders': return 'orders';
+					case '/reports': return 'reports';
+					case 'pages/goods/addgoods.vue': return 'addgoods';
+					default: return null;
+				}
+			}	
 		},
 		methods: {
 			back(){
@@ -68,12 +93,17 @@
 			async getMenuList(){
 				const res = await get('/menus')
 				if(res.meta.status !== 200) return this.$message.error(res.meta.msg)
+				this.menuList = res.data;	
+				console.log(res);
 				
-				this.menuList = res.data;				
-				console.log(this.menuList);
+				
 			},
 			iscollapse(){
 				this.isCollapse = !this.isCollapse;
+			},
+			handlePageChange(page){
+				const realPath = page.__file;
+				this.currentPagePath = realPath;
 			},
 			changePath(path,id){
 				//这里的path已经是二级目录下的path了

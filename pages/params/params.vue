@@ -1,7 +1,7 @@
 <template>
 	<view class="params">
 		 <el-alert title="注意:只允许为第三级分类设置相关参数" type="warning" :closable="false" show-icon></el-alert>
-		 <el-form label-width="10%" style="margin-top: 10px;">
+		 <el-form label-width="120px" style="margin-top: 10px;">
 			 <el-form-item label="选择商品分类 :">
 				  <el-cascader style="width: 300px;"
 				     v-model="param"
@@ -76,7 +76,7 @@
 				
 			</el-tab-pane>
 		    <el-tab-pane label="静态参数" name="second">
-				<scroll-view scroll-y="true" style="height: 360px;margin-top: 10rpx;" :show-scrollbar="true">
+				<scroll-view scroll-y="true" style="height: 390px;margin-top: 10rpx;" :show-scrollbar="true">
 					<el-table :data="paramsOnlyList" border>
 					<el-table-column type="expand"></el-table-column>
 					<el-table-column type="index" label="#"></el-table-column>
