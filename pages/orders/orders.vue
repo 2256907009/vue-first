@@ -50,6 +50,7 @@
 						</el-dialog>
 					</template>
 				</el-table-column>
+				
 			</el-table>
 		</scroll-view>
 		<el-pagination @current-change="pageChange" :current-page="queryInfo.pagenum" layout="total, prev, pager, next, jumper" :total="total">

@@ -11,6 +11,8 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 import 'quill/dist/quill.snow.css';
+
+import  ECharts  from 'echarts'
 // import { VueEditor } from "vue2-editor";
 
 // import { router, RouterMount } from "router/index.js"; 
@@ -38,6 +40,7 @@ import Vue from 'vue'
 Vue.use(ElementUI)
 Vue.use(ZKtable)
 Vue.use(VueQuillEditor)
+Vue.use(ECharts)
 // Vue.use(VueEditor)
 Vue.component('tree-table',ZKtable)
 // Vue.component('quill-editor',VueQuillEditor)
